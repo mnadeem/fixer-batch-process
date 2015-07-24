@@ -1,0 +1,11 @@
+package com.modeln.fxr.rules
+
+import com.modeln.fxr.model.Product
+
+rule "Populate Type"
+when
+  $p : Product ( type == null ) 
+then
+  $p.setType("XYZ");
+  System.out.println("Type modified to XYZ");
+end
