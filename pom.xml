@@ -6,7 +6,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 
 	<properties>
-		<drools.version>6.2.0.Final</drools.version>
+		<drools.version>6.3.0.Beta2</drools.version>
 		<jdk.version>1.6</jdk.version>
 		<slf4j.version>1.7.12</slf4j.version>
 		<spring.version>4.0.5.RELEASE</spring.version>

@@ -1,6 +1,7 @@
 package com.modeln.fxr.main.config;
 
 import org.kie.api.KieServices;
+import org.kie.api.builder.KieScanner;
 import org.kie.api.builder.ReleaseId;
 import org.kie.api.runtime.KieContainer;
 import org.springframework.context.annotation.Bean;
@@ -14,7 +15,12 @@ public class DroolsConfig {
     	KieServices ks = KieServices.Factory.get();
     	ReleaseId releaseId = ks.newReleaseId("com.modeln.fxr", "fixer-batch-process", "LATEST");
 		return ks.newKieContainer(releaseId);
-        //return KieServices.Factory.get().getKieClasspathContainer();
     }
-	
+
+    @Bean
+    public KieScanner kieScanner(KieContainer kieContainer) {
+    	KieServices ks = KieServices.Factory.get();
+
+		return ks.newKieScanner(kieContainer);
+    }
 }

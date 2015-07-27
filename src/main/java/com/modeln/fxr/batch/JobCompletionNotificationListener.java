@@ -2,6 +2,7 @@ package com.modeln.fxr.batch;
 
 import java.util.List;
 
+import org.kie.api.builder.KieScanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.BatchStatus;
@@ -19,15 +20,19 @@ public class JobCompletionNotificationListener extends JobExecutionListenerSuppo
 	private static final Logger log = LoggerFactory.getLogger(JobCompletionNotificationListener.class);
 
 	private final ProductDao productDao;
+	private final KieScanner KieScanner;
 
 	@Autowired
-	public JobCompletionNotificationListener(ProductDao productDao) {
+	public JobCompletionNotificationListener(ProductDao productDao, KieScanner kieScanner) {
 		this.productDao = productDao;
+		this.KieScanner = kieScanner;
 	}
 
 	@Override
 	public void beforeJob(JobExecution jobExecution) {
 		log.info("!!! JOB Starting! Here are the existing products");
+		log.info("!!! Scanning for Artifact changes");
+		this.KieScanner.scanNow();
 
 		List<Product> results = productDao.find();
 		if (results.isEmpty()) {

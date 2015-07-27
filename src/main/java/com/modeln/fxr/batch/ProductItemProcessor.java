@@ -12,7 +12,7 @@ import com.modeln.fxr.model.Product;
 public class ProductItemProcessor implements ItemProcessor<Product, Product> {
 
     private static final Logger log = LoggerFactory.getLogger(ProductItemProcessor.class);
-    
+
     private final KieContainer kieContainer;
 
     @Autowired
@@ -21,12 +21,13 @@ public class ProductItemProcessor implements ItemProcessor<Product, Product> {
     }
 
     public Product process(final Product product) throws Exception {
-
+          	
        log.info("Processing {}", product);
        KieSession kieSession = kieContainer.newKieSession();
        kieSession.insert(product);
        kieSession.fireAllRules();
-
+       kieSession.dispose();
+       kieSession.destroy();
         return product;
     }
 
